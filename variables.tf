@@ -20,6 +20,7 @@ variable "log_bucket" {
     region        = string
     force_destroy = optional(bool, true)
   })
+  default = null
 }
 
 variable "route53_zone" {
