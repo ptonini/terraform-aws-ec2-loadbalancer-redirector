@@ -1,6 +1,6 @@
 module "load_balancer" {
   source     = "ptonini/ec2-loadbalancer/aws"
-  version    = "~> 4.0.6"
+  version    = "~> 4.1.0"
   name       = var.name
   subnet_ids = var.subnet_ids
   security_group = {
