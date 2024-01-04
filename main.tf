@@ -1,6 +1,6 @@
 module "load_balancer" {
   source     = "ptonini/ec2-loadbalancer/aws"
-  version    = "~> 4.1.0"
+  version    = "~> 4.1.2"
   name       = var.name
   subnet_ids = var.subnet_ids
   security_group = {
@@ -14,15 +14,15 @@ module "load_balancer" {
   log_bucket = var.log_bucket
   listeners = {
     1 = {
-      port        = var.https_port
-      protocol    = "HTTPS"
-      certificate = module.certificate.this
-      actions     = { 1 = { type = "redirect", options = { host = var.target_hostname } } }
+      port            = var.https_port
+      protocol        = "HTTPS"
+      certificate     = module.certificate.this
+      default_actions = { 1 = { type = "redirect", redirect = { host = var.target_hostname } } }
     }
     http_to_https = {
-      port     = var.http_port
-      protocol = "HTTP"
-      actions  = { 1 = { type = "redirect", options = { port = var.https_port, protocol = "HTTPS" } } }
+      port            = var.http_port
+      protocol        = "HTTP"
+      default_actions = { 1 = { type = "redirect", redirect = { port = var.https_port, protocol = "HTTPS" } } }
     }
   }
 }
